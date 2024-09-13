@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EmpMapper">
+	<select id="1" resultType="org.zerock.myapp.domain.EmpVO">
+		SELECT * FROM emp
+	</select>
+	
+	<delete id="2" >
+		delete from emp where empno = #{empno} and ename = #{ename}
+	</delete>
+	
+	<select id="3" resultType="org.zerock.myapp.domain.EmpVO">
+		SELECT * FROM emp
+  		<where>
+			<if test="ename != null">
+  		 		ename LIKE '%'||#{ename}||'%'
+			</if>
+  		</where>
+	</select>
+	
+	<select id="4" resultType="org.zerock.myapp.domain.EmpVO">
+		select * from emp
+		<where>
+			<if test="ename != null">
+				ename like '%'||#{ename}||'%'
+			</if>
+
+			<if test="startEmpno != null and endEmpno != null">
+				And empno between #{startEmpno} and #{endEmpno}
+			</if>
+		</where>
+	</select>
+</mapper>
